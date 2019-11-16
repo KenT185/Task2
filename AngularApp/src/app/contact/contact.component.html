@@ -1,0 +1,17 @@
+<!doctype html>
+    <table class="table table-hover">
+      <thead class="thead-dark">
+        <tr>
+          <th *ngFor="let columns of displayedColumns" scope="col">{{columns}} </th>
+        </tr>
+      </thead>
+      <tbody class="table-data">
+        <tr mdbTableCol *ngFor="let contact of contacts">
+          <td>{{contact.name}}</td>
+          <td>{{contact.surname}}</td>
+          <td>{{contact.phoneNumber}}</td>
+          <td>{{contact.email}}</td>
+          <td>{{contact.address}}</td>
+        </tr>
+      </tbody>
+    </table>
