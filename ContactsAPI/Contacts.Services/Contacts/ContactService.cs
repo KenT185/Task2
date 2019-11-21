@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Contacts.DataAccessLayer;
 using Contacts.DataAccessLayer.Entities;
@@ -29,8 +28,6 @@ namespace Contacts.Services.Contacts
                     return null;
                 }
                 return contacts;
-
-            //return await _dbContext.Set<Contact>().ToListAsync();
         }
 
         // UPDATE

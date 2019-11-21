@@ -6,7 +6,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
-using Contacts.DataAccessLayer.Entities;
 
 namespace Contacts.WebAPI
 {
@@ -22,22 +21,12 @@ namespace Contacts.WebAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors();
+            services.AddMvc().SetCompatibilityVersion(Microsoft.AspNetCore.Mvc.CompatibilityVersion.Version_2_1);
+
             // Connect to database
             services.AddDbContext<ContactDbContext>(options => {
                 options.UseSqlServer(Configuration.GetConnectionString("MyConnection"));
-            });
-
-            // Create policy with options
-            services.AddCors(options =>
-            {
-                options.AddPolicy("AllowOrigin",
-                    builder => builder.
-                    WithOrigins("https://localhost:4200")
-                    //AllowAnyOrigin()
-                    .WithMethods("GET")
-                    .AllowAnyHeader()
-                    //.WithExposedHeaders("Access-Control-Allow-Origin", "*")
-                    .AllowCredentials());
             });
 
             services.AddControllers();
@@ -61,12 +50,13 @@ namespace Contacts.WebAPI
             app.UseRouting();
 
             // Global policy
-            app.UseCors("AllowOrigin");
+            app.UseCors(x => x
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader()
+                );
 
             app.UseAuthorization();
-
-            // Return Access-Control-Allow-Origin (global CORS)
-            app.UseMiddleware<MyMiddleware>();
 
             app.UseEndpoints(endpoints =>
             {

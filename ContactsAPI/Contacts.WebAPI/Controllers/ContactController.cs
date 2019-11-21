@@ -1,15 +1,14 @@
 ﻿using System.Threading.Tasks;
 using Contacts.DataAccessLayer.Entities;
 using Contacts.Services.Contacts;
-using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Contacts.WebAPI.Controllers 
 {
     [ApiController]
-    [Route("")]
-    //[EnableCors("AllowOrigin")]
+    [Route("[controller]")]
     public class ContactController : ControllerBase
     {
         private readonly IContactService _iContactService;
@@ -23,26 +22,18 @@ namespace Contacts.WebAPI.Controllers
         }
 
         [HttpGet]
-        //[EnableCors("AllowOrigin")]
-        public async Task<IEnumerable<Contact>> GetDiet()
+        public async Task<IEnumerable<Contact>> GetContact()
         {
             _logger.LogInformation("Got list of contacts");
             return await _iContactService.GetContactAsync();
         }
 
-        //PUT: /Contact/1
-        [HttpPut("{id}")]
-        //[EnableCors("AllowOrigin")]
-        public async Task<IActionResult> EditContactAddress(int id, Contact contact)
+        [HttpPut]
+        public async Task<IActionResult> EditContactAddress([FromBody]Contact contact)
         {
-            if (id != contact.Id)
-            {
-                _logger.LogWarning("Contact has not been updated, Id does not match");
-                return BadRequest("Id does not match");
-            }
             await _iContactService.UpdateContactAddressAsync(contact);
             _logger.LogInformation("Contact address has been updated");
-            return NoContent();
+            return Ok(contact);
         }
     }
 }
