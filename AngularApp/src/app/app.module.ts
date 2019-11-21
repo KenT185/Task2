@@ -6,12 +6,13 @@ import { MatTableModule } from "@angular/material";
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ContactComponent } from './contact/contact.component';
+import { ContactComponent } from './components/contact/contact.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
-import { MainNavComponent } from './main-nav/main-nav.component';
-import { AddressFieldComponent } from './address-field/address-field.component';
+import { MainNavComponent } from './components/main-nav/main-nav.component';
+import { AddressFieldComponent } from './components/address-field/address-field.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -26,9 +27,11 @@ import { AddressFieldComponent } from './address-field/address-field.component';
     HttpClientModule,
     BrowserAnimationsModule,
     MatTableModule,
-    NgbModule
+    NgbModule,
+    FormsModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent], 
+  entryComponents:[AddressFieldComponent]
 })
 export class AppModule { }

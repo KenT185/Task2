@@ -1,0 +1,15 @@
+<div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Contact update</h4>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss()">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+
+<div class="modal-body">
+    <input type="text" class="form-control" [(ngModel)]="contact.address" >
+    
+</div>
+<div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="activeModal.close(contact)">Save</button>
+        <button type="button" class="btn btn-danger" (click)="activeModal.close(null)">Cancel</button>
+</div>

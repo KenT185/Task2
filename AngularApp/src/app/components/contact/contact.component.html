@@ -6,12 +6,12 @@
         </tr>
       </thead>
       <tbody class="table-data">
-        <tr mdbTableCol *ngFor="let contact of contacts">
+        <tr mdbTableCol *ngFor="let contact of contacts$ | async">
           <td>{{contact.name}}</td>
           <td>{{contact.surname}}</td>
           <td>{{contact.phoneNumber}}</td>
           <td>{{contact.email}}</td>
-          <td>{{contact.address}}</td>
+          <td (click)="rowclick(contact)">{{contact.address}}</td>
         </tr>
       </tbody>
     </table>
